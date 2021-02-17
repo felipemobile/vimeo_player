@@ -13,18 +13,20 @@ class VimeoPlayer extends StatefulWidget {
   final bool autoPlay;
   final bool looping;
   final int position;
+  VideoPlayerController controller;
 
   VimeoPlayer({
     @required this.id,
     this.autoPlay,
     this.looping,
     this.position,
+    this.controller,
     Key key,
   }) : super(key: key);
 
   @override
   _VimeoPlayerState createState() =>
-      _VimeoPlayerState(id, autoPlay, looping, position);
+      _VimeoPlayerState(id, autoPlay, looping, position, controller);
 }
 
 class _VimeoPlayerState extends State<VimeoPlayer> {
@@ -35,9 +37,11 @@ class _VimeoPlayerState extends State<VimeoPlayer> {
   bool fullScreen = false;
   int position;
 
-  _VimeoPlayerState(this._id, this.autoPlay, this.looping, this.position);
+  _VimeoPlayerState(
+      this._id, this.autoPlay, this.looping, this.position, this.controller);
 
   //Custom controller
+  VideoPlayerController controller;
   VideoPlayerController _controller;
   Future<void> initFuture;
 
@@ -64,6 +68,8 @@ class _VimeoPlayerState extends State<VimeoPlayer> {
 
   @override
   void initState() {
+    _controller = controller;
+
     //Create class
     _quality = QualityLinks(_id);
 
@@ -179,8 +185,8 @@ class _VimeoPlayerState extends State<VimeoPlayer> {
               margin: EdgeInsets.fromLTRB(
                   0, 10, doubleTapLWidth / 2 + 30, doubleTapLMargin + 20),
               decoration: BoxDecoration(
-                //color: Colors.red,
-              ),
+                  //color: Colors.red,
+                  ),
             ),
 
             // Изменение размера блоков дабл тапа. Нужно для открытия кнопок
@@ -215,8 +221,8 @@ class _VimeoPlayerState extends State<VimeoPlayer> {
               margin: EdgeInsets.fromLTRB(doubleTapRWidth / 2 + 45,
                   doubleTapRMargin, 0, doubleTapRMargin + 20),
               decoration: BoxDecoration(
-                //color: Colors.red,
-              ),
+                  //color: Colors.red,
+                  ),
             ),
             // Изменение размера блоков дабл тапа. Нужно для открытия кнопок
             // "Во весь экран" и "Качество" при включенном overlay
