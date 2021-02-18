@@ -13,20 +13,18 @@ class VimeoPlayer extends StatefulWidget {
   final bool autoPlay;
   final bool looping;
   final int position;
-  VideoPlayerController controller;
 
   VimeoPlayer({
     @required this.id,
     this.autoPlay,
     this.looping,
     this.position,
-    this.controller,
     Key key,
   }) : super(key: key);
 
   @override
   _VimeoPlayerState createState() =>
-      _VimeoPlayerState(id, autoPlay, looping, position, controller);
+      _VimeoPlayerState(id, autoPlay, looping, position);
 }
 
 class _VimeoPlayerState extends State<VimeoPlayer> {
@@ -37,11 +35,9 @@ class _VimeoPlayerState extends State<VimeoPlayer> {
   bool fullScreen = false;
   int position;
 
-  _VimeoPlayerState(
-      this._id, this.autoPlay, this.looping, this.position, this.controller);
+  _VimeoPlayerState(this._id, this.autoPlay, this.looping, this.position);
 
   //Custom controller
-  VideoPlayerController controller;
   VideoPlayerController _controller;
   Future<void> initFuture;
 
@@ -66,10 +62,12 @@ class _VimeoPlayerState extends State<VimeoPlayer> {
   double doubleTapLWidth = 400;
   double doubleTapLHeight = 160;
 
+  VideoPlayerController getController() {
+    return _controller;
+  }
+
   @override
   void initState() {
-    _controller = controller;
-
     //Create class
     _quality = QualityLinks(_id);
 
