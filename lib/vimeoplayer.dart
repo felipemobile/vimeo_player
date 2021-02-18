@@ -65,6 +65,12 @@ class _VimeoPlayerState extends State<VimeoPlayer> {
   double doubleTapLWidth = 400;
   double doubleTapLHeight = 160;
 
+  void mute() {
+    if (_controller) {
+      _controller.setVolume(0.0);
+    }
+  }
+
   @override
   void initState() {
     //Create class
