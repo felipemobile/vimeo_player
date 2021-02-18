@@ -9,6 +9,9 @@ import 'src/fullscreen_player.dart';
 
 //Класс видео плеера
 class VimeoPlayer extends StatefulWidget {
+  static _VimeoPlayerState of(BuildContext context) =>
+      context.ancestorStateOfType(const VimeoPlayer<_VimeoPlayerState>());
+
   final String id;
   final bool autoPlay;
   final bool looping;
@@ -61,10 +64,6 @@ class _VimeoPlayerState extends State<VimeoPlayer> {
   double doubleTapLMargin = 10;
   double doubleTapLWidth = 400;
   double doubleTapLHeight = 160;
-
-  VideoPlayerController getController() {
-    return _controller;
-  }
 
   @override
   void initState() {
